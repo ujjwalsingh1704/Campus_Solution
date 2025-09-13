@@ -1,26 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { CreditCard, Plus, ArrowUpRight, ArrowDownLeft, Wallet as WalletIcon, IndianRupee, Smartphone, Building, Coffee, BookOpen, Calendar, X, History } from 'lucide-react';
 import { useWallet } from '../contexts/WalletContext';
+import { useAuth } from '../contexts/AuthContext';
 import Layout from '../components/Layout';
-import { 
-  Wallet as WalletIcon, 
-  CreditCard, 
-  Plus, 
-  ArrowUpRight, 
-  ArrowDownLeft, 
-  History, 
-  IndianRupee,
-  Smartphone,
-  Building,
-  Coffee,
-  BookOpen,
-  Calendar,
-  X
-} from 'lucide-react';
 
 const Wallet = () => {
   const { user } = useAuth();
   const { balance, transactions, topUpWallet, loading } = useWallet();
+
+  // Role-specific wallet information
+  const getWalletInfo = () => {
+    switch (user?.role) {
+      case 'student':
+        return {
+          title: 'Student Wallet',
+          description: 'Manage your campus expenses and payments',
+          allowedTransactions: ['Canteen purchases', 'Library fines', 'Event registrations', 'Printing services']
+        };
+      case 'faculty':
+        return {
+          title: 'Faculty Wallet',
+          description: 'Professional expenses and allowances',
+          allowedTransactions: ['Conference fees', 'Research materials', 'Professional development', 'Office supplies']
+        };
+      case 'admin':
+        return {
+          title: 'Administrative Wallet',
+          description: 'Institutional budget and expense management',
+          allowedTransactions: ['Event organization', 'Office supplies', 'Infrastructure', 'Staff expenses']
+        };
+      default:
+        return {
+          title: 'Campus Wallet',
+          description: 'Manage your campus finances',
+          allowedTransactions: ['General expenses']
+        };
+    }
+  };
+
+  const walletInfo = getWalletInfo();
   
   const [showTopUp, setShowTopUp] = useState(false);
   const [topUpAmount, setTopUpAmount] = useState('');
@@ -152,8 +170,18 @@ const Wallet = () => {
         <div className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-lg p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-white mb-2">My Wallet</h1>
-              <p className="text-emerald-100">Manage your campus payments and transactions</p>
+              <h1 className="text-3xl font-bold text-white mb-2">{walletInfo.title}</h1>
+              <p className="text-emerald-100">{walletInfo.description}</p>
+              <div className="mt-3">
+                <p className="text-emerald-200 text-sm font-medium mb-1">Allowed Transactions:</p>
+                <div className="flex flex-wrap gap-2">
+                  {walletInfo.allowedTransactions.map((transaction, index) => (
+                    <span key={index} className="bg-emerald-500/30 text-emerald-100 px-2 py-1 rounded text-xs">
+                      {transaction}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
             <WalletIcon className="text-emerald-200" size={48} />
           </div>

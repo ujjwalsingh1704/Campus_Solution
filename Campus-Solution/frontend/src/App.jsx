@@ -119,7 +119,7 @@ const AppContent = () => {
         } />
 
         <Route path="/wallet" element={
-          <ProtectedRoute allowedRoles={['student', 'admin']}>
+          <ProtectedRoute allowedRoles={['student', 'faculty', 'admin']}>
             <Wallet />
           </ProtectedRoute>
         } />

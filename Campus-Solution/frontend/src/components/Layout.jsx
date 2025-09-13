@@ -33,6 +33,7 @@ const Layout = ({ children }) => {
           { name: 'Library', href: '/library', icon: Library },
           { name: 'Canteen', href: '/canteen', icon: Coffee },
           { name: 'Bookings', href: '/bookings', icon: BookOpen },
+          { name: 'Wallet', href: '/wallet', icon: IndianRupee },
           { name: 'AI Assistant', href: '/ai-assistant', icon: MessageCircle },
         ];
       case 'faculty':
@@ -61,6 +62,7 @@ const Layout = ({ children }) => {
         ];
       case 'canteen_staff':
         return [
+          { name: 'Dashboard', href: '/dashboard', icon: BarChart3 },
           { name: 'Canteen Management', href: '/canteen', icon: Coffee },
         ];
       default:

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { walletAPI } from '../utils/api';
+import { useAuth } from './AuthContext';
 
 const WalletContext = createContext();
 
@@ -12,10 +13,23 @@ export const useWallet = () => {
 };
 
 export const WalletProvider = ({ children }) => {
-  const [balance, setBalance] = useState(2500);
-  const [transactions, setTransactions] = useState([]);
+  const { user } = useAuth();
+  const [walletData, setWalletData] = useState({
+    student: { balance: 1500, transactions: [] },
+    faculty: { balance: 5000, transactions: [] },
+    admin: { balance: 10000, transactions: [] }
+  });
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  // Get current user's wallet data
+  const getCurrentWallet = () => {
+    const role = user?.role || 'student';
+    return walletData[role] || { balance: 0, transactions: [] };
+  };
+
+  const balance = getCurrentWallet().balance;
+  const transactions = getCurrentWallet().transactions;
 
   // Initialize wallet data
   useEffect(() => {
@@ -75,42 +89,112 @@ export const WalletProvider = ({ children }) => {
         walletAPI.getBalance(),
         walletAPI.getTransactions()
       ]);
-      setBalance(balanceData.balance);
-      setTransactions(transactionsData.transactions);
-    } catch (error) {
-      // Fallback to sample data
-      const sampleTransactions = [
-        {
-          _id: 'txn1',
-          type: 'topup',
-          amount: 1000,
-          description: 'Wallet Top-up via UPI',
-          timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-          status: 'completed'
-        },
-        {
-          _id: 'txn2',
-          type: 'payment',
-          amount: -120,
-          description: 'Canteen Order - Chicken Biryani',
-          timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-          status: 'completed'
-        },
-        {
-          _id: 'txn3',
-          type: 'topup',
-          amount: 2000,
-          description: 'Wallet Top-up via Card',
-          timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-          status: 'completed'
+      const role = user?.role || 'student';
+      setWalletData(prev => ({
+        ...prev,
+        [role]: {
+          balance: balanceData.balance,
+          transactions: transactionsData.transactions
         }
-      ];
-      setTransactions(sampleTransactions);
+      }));
+    } catch (error) {
+      // Fallback to role-specific sample data
+      const sampleWalletData = {
+        student: {
+          balance: 1500,
+          transactions: [
+            {
+              _id: 'txn_s1',
+              type: 'topup',
+              amount: 500,
+              description: 'Wallet Top-up via UPI',
+              timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+              status: 'completed'
+            },
+            {
+              _id: 'txn_s2',
+              type: 'payment',
+              amount: -80,
+              description: 'Canteen - Lunch',
+              timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+              status: 'completed'
+            },
+            {
+              _id: 'txn_s3',
+              type: 'payment',
+              amount: -25,
+              description: 'Library Fine Payment',
+              timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+              status: 'completed'
+            }
+          ]
+        },
+        faculty: {
+          balance: 5000,
+          transactions: [
+            {
+              _id: 'txn_f1',
+              type: 'topup',
+              amount: 3000,
+              description: 'Monthly Faculty Allowance',
+              timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+              status: 'completed'
+            },
+            {
+              _id: 'txn_f2',
+              type: 'payment',
+              amount: -200,
+              description: 'Conference Registration',
+              timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+              status: 'completed'
+            },
+            {
+              _id: 'txn_f3',
+              type: 'payment',
+              amount: -150,
+              description: 'Research Materials',
+              timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+              status: 'completed'
+            }
+          ]
+        },
+        admin: {
+          balance: 10000,
+          transactions: [
+            {
+              _id: 'txn_a1',
+              type: 'topup',
+              amount: 5000,
+              description: 'Administrative Budget Allocation',
+              timestamp: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+              status: 'completed'
+            },
+            {
+              _id: 'txn_a2',
+              type: 'payment',
+              amount: -500,
+              description: 'Office Supplies Purchase',
+              timestamp: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+              status: 'completed'
+            },
+            {
+              _id: 'txn_a3',
+              type: 'payment',
+              amount: -300,
+              description: 'Event Organization Expenses',
+              timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+              status: 'completed'
+            }
+          ]
+        }
+      };
+      setWalletData(sampleWalletData);
     }
   };
 
   const processPayment = async (amount, description, category = 'general') => {
-    if (balance < amount) {
+    const currentWallet = getCurrentWallet();
+    if (currentWallet.balance < amount) {
       throw new Error('Insufficient balance');
     }
 
@@ -119,9 +203,9 @@ export const WalletProvider = ({ children }) => {
       // Try API call first
       await walletAPI.processPayment(amount, description);
       
-      // Update local state
-      const newBalance = balance - amount;
-      setBalance(newBalance);
+      // Update local state for current user's role
+      const role = user?.role || 'student';
+      const newBalance = currentWallet.balance - amount;
       
       const newTransaction = {
         _id: `txn_${Date.now()}`,
@@ -133,13 +217,19 @@ export const WalletProvider = ({ children }) => {
         status: 'completed'
       };
       
-      setTransactions(prev => [newTransaction, ...prev]);
+      setWalletData(prev => ({
+        ...prev,
+        [role]: {
+          balance: newBalance,
+          transactions: [newTransaction, ...prev[role].transactions]
+        }
+      }));
       
       return { success: true, newBalance, transaction: newTransaction };
     } catch (error) {
       // Fallback: Update locally for demo
-      const newBalance = balance - amount;
-      setBalance(newBalance);
+      const role = user?.role || 'student';
+      const newBalance = currentWallet.balance - amount;
       
       const newTransaction = {
         _id: `txn_${Date.now()}`,
@@ -151,7 +241,13 @@ export const WalletProvider = ({ children }) => {
         status: 'completed'
       };
       
-      setTransactions(prev => [newTransaction, ...prev]);
+      setWalletData(prev => ({
+        ...prev,
+        [role]: {
+          balance: newBalance,
+          transactions: [newTransaction, ...prev[role].transactions]
+        }
+      }));
       
       return { success: true, newBalance, transaction: newTransaction };
     } finally {
@@ -164,8 +260,9 @@ export const WalletProvider = ({ children }) => {
     try {
       await walletAPI.topUp(amount, paymentMethod);
       
-      const newBalance = balance + amount;
-      setBalance(newBalance);
+      const role = user?.role || 'student';
+      const currentWallet = getCurrentWallet();
+      const newBalance = currentWallet.balance + amount;
       
       const newTransaction = {
         _id: `txn_${Date.now()}`,
@@ -177,13 +274,20 @@ export const WalletProvider = ({ children }) => {
         status: 'completed'
       };
       
-      setTransactions(prev => [newTransaction, ...prev]);
+      setWalletData(prev => ({
+        ...prev,
+        [role]: {
+          balance: newBalance,
+          transactions: [newTransaction, ...prev[role].transactions]
+        }
+      }));
       
       return { success: true, newBalance, transaction: newTransaction };
     } catch (error) {
       // Fallback: Update locally for demo
-      const newBalance = balance + amount;
-      setBalance(newBalance);
+      const role = user?.role || 'student';
+      const currentWallet = getCurrentWallet();
+      const newBalance = currentWallet.balance + amount;
       
       const newTransaction = {
         _id: `txn_${Date.now()}`,
@@ -195,7 +299,13 @@ export const WalletProvider = ({ children }) => {
         status: 'completed'
       };
       
-      setTransactions(prev => [newTransaction, ...prev]);
+      setWalletData(prev => ({
+        ...prev,
+        [role]: {
+          balance: newBalance,
+          transactions: [newTransaction, ...prev[role].transactions]
+        }
+      }));
       
       return { success: true, newBalance, transaction: newTransaction };
     } finally {
