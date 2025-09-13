@@ -29,11 +29,11 @@ const Gamification = () => {
   });
 
   const [leaderboard, setLeaderboard] = useState([
-    { rank: 1, name: 'Alex Chen', points: 2850, level: 8, avatar: '👨‍💻' },
-    { rank: 2, name: 'Sarah Kumar', points: 2720, level: 7, avatar: '👩‍🎓' },
-    { rank: 3, name: 'Mike Johnson', points: 2650, level: 7, avatar: '👨‍🔬' },
-    { rank: 4, name: 'Priya Sharma', points: 2480, level: 6, avatar: '👩‍💼' },
-    { rank: 5, name: 'David Lee', points: 2350, level: 6, avatar: '👨‍🎨' }
+    { rank: 1, name: 'Alex Chen', points: 2850, level: 8, avatar: 'AC' },
+    { rank: 2, name: 'Sarah Kumar', points: 2720, level: 7, avatar: 'SK' },
+    { rank: 3, name: 'Mike Johnson', points: 2650, level: 7, avatar: 'MJ' },
+    { rank: 4, name: 'Priya Sharma', points: 2480, level: 6, avatar: 'PS' },
+    { rank: 5, name: 'David Lee', points: 2350, level: 6, avatar: 'DL' }
   ]);
 
   const [badges, setBadges] = useState([
@@ -41,7 +41,7 @@ const Gamification = () => {
       id: 1,
       name: 'Eco Warrior',
       description: 'Ordered 10 eco-friendly meals',
-      icon: '🌱',
+      icon: 'ECO',
       earned: true,
       points: 50,
       rarity: 'common'
@@ -50,7 +50,7 @@ const Gamification = () => {
       id: 2,
       name: 'Event Enthusiast',
       description: 'Attended 15 campus events',
-      icon: '🎉',
+      icon: 'EVT',
       earned: true,
       points: 75,
       rarity: 'uncommon'
@@ -59,7 +59,7 @@ const Gamification = () => {
       id: 3,
       name: 'Study Master',
       description: 'Booked study rooms 25 times',
-      icon: '📚',
+      icon: 'STU',
       earned: true,
       points: 100,
       rarity: 'rare'
@@ -68,7 +68,7 @@ const Gamification = () => {
       id: 4,
       name: 'Social Butterfly',
       description: 'Made 50 new connections',
-      icon: '🦋',
+      icon: 'SOC',
       earned: false,
       points: 125,
       rarity: 'epic',
@@ -78,7 +78,7 @@ const Gamification = () => {
       id: 5,
       name: 'Tech Guru',
       description: 'Complete 5 tech workshops',
-      icon: '💻',
+      icon: 'TEC',
       earned: false,
       points: 150,
       rarity: 'legendary',
@@ -88,7 +88,7 @@ const Gamification = () => {
       id: 6,
       name: 'Campus Explorer',
       description: 'Visit all campus locations',
-      icon: '🗺️',
+      icon: 'EXP',
       earned: true,
       points: 200,
       rarity: 'legendary'
@@ -389,7 +389,7 @@ const Gamification = () => {
               
               <div className="flex items-center justify-between p-3 bg-gray-700 rounded-lg">
                 <div className="flex items-center space-x-3">
-                  <div className="text-2xl">📚</div>
+                  <div className="text-2xl font-bold text-blue-400">STU</div>
                   <div>
                     <p className="font-semibold text-white">Study Room Priority</p>
                     <p className="text-gray-400 text-sm">Skip booking queue</p>
@@ -415,7 +415,7 @@ const Gamification = () => {
               
               <div className="flex items-center justify-between p-3 bg-gray-700 rounded-lg opacity-50">
                 <div className="flex items-center space-x-3">
-                  <div className="text-2xl">🏆</div>
+                  <div className="text-2xl font-bold text-yellow-400">LEG</div>
                   <div>
                     <p className="font-semibold text-white">Campus Legend Badge</p>
                     <p className="text-gray-400 text-sm">Exclusive recognition</p>

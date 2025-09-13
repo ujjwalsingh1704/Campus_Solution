@@ -79,10 +79,10 @@ const Layout = ({ children }) => {
         <div className="p-6">
           <div className="mb-8">
             <h2 className="text-xl font-bold text-white mb-2">
-              {user?.role === 'student' && '🎓 Student Portal'}
-              {user?.role === 'faculty' && '👨‍🏫 Faculty Portal'}
-              {user?.role === 'admin' && '⚙️ Admin Portal'}
-              {user?.role === 'canteen_staff' && '🍽️ Canteen Management'}
+              {user?.role === 'student' && 'Student Portal'}
+              {user?.role === 'faculty' && 'Faculty Portal'}
+              {user?.role === 'admin' && 'Admin Portal'}
+              {user?.role === 'canteen_staff' && 'Canteen Management'}
             </h2>
             <div className="h-1 bg-gradient-primary rounded-full"></div>
           </div>

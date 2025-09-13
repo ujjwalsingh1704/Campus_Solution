@@ -243,7 +243,7 @@ const Canteen = () => {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-4xl font-bold text-white mb-2 bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
-              🍽️ Campus Canteen
+              Campus Canteen
             </h1>
             <p className="text-gray-300 text-lg">Order delicious food from campus canteen</p>
           </div>
@@ -321,7 +321,7 @@ const Canteen = () => {
                     : 'text-gray-400 hover:text-white hover:bg-gray-700/50'
                 }`}
               >
-                🍽️ Menu Management
+                Menu Management
               </button>
             </>
           )}
@@ -580,7 +580,7 @@ const Canteen = () => {
                       
                       {order.status === 'ready' && (
                         <div className="bg-green-600/20 border border-green-600 rounded-lg p-3">
-                          <p className="text-green-400 font-medium">🎉 Your order is ready for pickup!</p>
+                          <p className="text-green-400 font-medium">Your order is ready for pickup!</p>
                           <p className="text-green-300 text-sm">Please collect from the canteen counter</p>
                         </div>
                       )}
@@ -682,7 +682,7 @@ const Canteen = () => {
                         <div>
                           <h3 className="text-lg font-semibold text-white">Order #{order._id}</h3>
                           <div className="flex items-center space-x-4 mt-2">
-                            <p className="text-gray-300">👤 {order.customerName}</p>
+                            <p className="text-gray-300">{order.customerName}</p>
                             <span className={`status-badge ${
                               order.customerRole === 'student' ? 'status-pending' :
                               order.customerRole === 'faculty' ? 'status-approved' :
@@ -692,10 +692,10 @@ const Canteen = () => {
                             </span>
                           </div>
                           <p className="text-gray-400 text-sm mt-1">
-                            📅 {new Date(order.orderTime).toLocaleString()}
+                            {new Date(order.orderTime).toLocaleString()}
                           </p>
                           {order.customerPhone && (
-                            <p className="text-gray-400 text-sm">📞 {order.customerPhone}</p>
+                            <p className="text-gray-400 text-sm">Phone: {order.customerPhone}</p>
                           )}
                         </div>
                         <div className="text-right">
@@ -704,7 +704,7 @@ const Canteen = () => {
                           </span>
                           <p className="text-green-400 font-bold mt-2 text-lg">₹{order.total}</p>
                           {order.estimatedTime && (
-                            <p className="text-blue-400 text-sm">⏱️ {order.estimatedTime} min</p>
+                            <p className="text-blue-400 text-sm">Est. {order.estimatedTime} min</p>
                           )}
                         </div>
                       </div>
@@ -724,7 +724,7 @@ const Canteen = () => {
                             onClick={() => handleUpdateOrderStatus(order._id, 'preparing')}
                             className="btn-primary text-sm py-2 px-4"
                           >
-                            🍳 Start Preparing
+                            Start Preparing
                           </button>
                         )}
                         {order.status === 'preparing' && (
@@ -732,7 +732,7 @@ const Canteen = () => {
                             onClick={() => handleUpdateOrderStatus(order._id, 'ready')}
                             className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300"
                           >
-                            ✅ Mark Ready
+                            Mark Ready
                           </button>
                         )}
                         {order.status === 'ready' && (
@@ -740,7 +740,7 @@ const Canteen = () => {
                             onClick={() => handleUpdateOrderStatus(order._id, 'completed')}
                             className="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300"
                           >
-                            🎉 Complete Order
+                            Complete Order
                           </button>
                         )}
                       </div>
@@ -758,7 +758,7 @@ const Canteen = () => {
             <div className="card-modern p-8">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-white flex items-center">
-                  🍽️ Menu Management
+                  Menu Management
                 </h2>
                 <button
                   onClick={() => setShowAddItemForm(true)}
@@ -826,7 +826,7 @@ const Canteen = () => {
                         value={newItemForm.name}
                         onChange={(e) => setNewItemForm({...newItemForm, name: e.target.value})}
                         className="input-modern w-full"
-                        placeholder="e.g., Butter Chicken"
+                        placeholder="e.g., Burger Chicken"
                         required
                       />
                     </div>

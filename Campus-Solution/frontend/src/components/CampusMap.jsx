@@ -318,25 +318,25 @@ const CampusMap = ({ selectedBuilding, onBuildingSelect, showDirections = false 
                 onClick={() => handleBuildingClick(campusBuildings.find(b => b.id === 'library'))}
                 className="w-full text-left px-3 py-2 bg-gray-600 hover:bg-gray-500 rounded text-gray-300 text-sm transition-colors"
               >
-                📚 Go to Library
+                Go to Library
               </button>
               <button
                 onClick={() => handleBuildingClick(campusBuildings.find(b => b.id === 'cafeteria'))}
                 className="w-full text-left px-3 py-2 bg-gray-600 hover:bg-gray-500 rounded text-gray-300 text-sm transition-colors"
               >
-                🍽️ Find Cafeteria
+                Find Cafeteria
               </button>
               <button
                 onClick={() => handleBuildingClick(campusBuildings.find(b => b.id === 'lab-complex'))}
                 className="w-full text-left px-3 py-2 bg-gray-600 hover:bg-gray-500 rounded text-gray-300 text-sm transition-colors"
               >
-                🔬 Locate Labs
+                Locate Labs
               </button>
               <button
                 onClick={() => handleBuildingClick(campusBuildings.find(b => b.id === 'parking'))}
                 className="w-full text-left px-3 py-2 bg-gray-600 hover:bg-gray-500 rounded text-gray-300 text-sm transition-colors"
               >
-                🚗 Find Parking
+                Find Parking
               </button>
             </div>
           </div>

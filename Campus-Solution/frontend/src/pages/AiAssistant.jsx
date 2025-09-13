@@ -427,7 +427,7 @@ What would you like to know?`,
             
             <div className="mt-4 p-3 bg-blue-600/20 border border-blue-600/50 rounded-lg">
               <p className="text-blue-200 text-xs">
-                💡 <strong>Tip:</strong> Click any prompt above to ask the AI Assistant, or type your own question below.
+                <strong>Tip:</strong> Click any prompt above to ask the AI Assistant, or type your own question below.
               </p>
             </div>
           </div>

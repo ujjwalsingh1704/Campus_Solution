@@ -335,7 +335,7 @@ const Events = () => {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-4xl font-bold text-white mb-2 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              🎉 Campus Events
+              Campus Events
             </h1>
             <p className="text-gray-300 text-lg">
               {user?.role === 'student' ? 'Discover and register for exciting campus events' : 'Manage and organize campus events'}
@@ -356,7 +356,7 @@ const Events = () => {
         {showAddForm && (
           <div className="card-modern p-8 animate-fade-in">
             <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
-              {editingEvent ? '✏️ Edit Event' : '✨ Create New Event'}
+              {editingEvent ? 'Edit Event' : 'Create New Event'}
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -732,7 +732,7 @@ const Events = () => {
               
               {user?.role === 'student' && event.isRegistered && (
                 <div className="w-full bg-green-600 text-white px-4 py-2 rounded-lg text-center">
-                  ✓ Registered
+                  Registered
                 </div>
               )}
             </div>
