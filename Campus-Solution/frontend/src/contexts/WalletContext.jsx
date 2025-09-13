@@ -50,33 +50,69 @@ export const WalletProvider = ({ children }) => {
       const sampleExpenses = [
         {
           _id: 'exp1',
-          amount: 150,
-          description: 'Office supplies',
-          category: 'office',
-          date: new Date().toISOString(),
+          amount: 25000,
+          description: 'Computer Lab Equipment Upgrade',
+          category: 'infrastructure',
+          date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
           approved: true,
-          receipt: 'receipt_001.pdf',
-          submittedBy: 'admin'
+          receipt: 'equipment_receipt_001.pdf',
+          submittedBy: 'admin',
+          submittedByName: 'Admin User'
         },
         {
           _id: 'exp2',
-          amount: 300,
-          description: 'Conference registration',
-          category: 'professional',
-          date: new Date().toISOString(),
-          approved: false,
-          receipt: 'receipt_002.pdf',
-          submittedBy: 'faculty'
+          amount: 8500,
+          description: 'Monthly Electricity Bill',
+          category: 'utilities',
+          date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+          approved: true,
+          receipt: 'utility_bill_002.pdf',
+          submittedBy: 'admin',
+          submittedByName: 'Admin User'
         },
         {
           _id: 'exp3',
-          amount: 75,
-          description: 'Team lunch',
-          category: 'entertainment',
-          date: new Date().toISOString(),
+          amount: 15000,
+          description: 'Annual Tech Conference Sponsorship',
+          category: 'events',
+          date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+          approved: false,
+          receipt: 'conference_invoice_003.pdf',
+          submittedBy: 'admin',
+          submittedByName: 'Admin User'
+        },
+        {
+          _id: 'exp4',
+          amount: 3200,
+          description: 'Library Books and Journals',
+          category: 'supplies',
+          date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
           approved: true,
-          receipt: 'receipt_003.pdf',
-          submittedBy: 'admin'
+          receipt: 'library_supplies_004.pdf',
+          submittedBy: 'admin',
+          submittedByName: 'Admin User'
+        },
+        {
+          _id: 'exp5',
+          amount: 12000,
+          description: 'Campus WiFi Infrastructure Maintenance',
+          category: 'maintenance',
+          date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
+          approved: false,
+          receipt: 'maintenance_receipt_005.pdf',
+          submittedBy: 'admin',
+          submittedByName: 'Admin User'
+        },
+        {
+          _id: 'exp6',
+          amount: 45000,
+          description: 'New Projectors for Classrooms',
+          category: 'equipment',
+          date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+          approved: true,
+          receipt: 'projector_invoice_006.pdf',
+          submittedBy: 'admin',
+          submittedByName: 'Admin User'
         }
       ];
       setExpenses(sampleExpenses);
@@ -433,3 +469,5 @@ export const WalletProvider = ({ children }) => {
     </WalletContext.Provider>
   );
 };
+
+export default WalletProvider;

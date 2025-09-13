@@ -39,19 +39,31 @@ export default function Library() {
     'Engineering', 'Chemistry', 'Business', 'Literature', 'Research', 'General'
   ];
 
+  // Initial data load - always load books regardless of user state
   useEffect(() => {
-    console.log('Library useEffect - activeTab:', activeTab, 'user:', user);
-    if (activeTab === 'browse') {
-      console.log('Fetching books...');
-      fetchBooks();
-    } else if (activeTab === 'my-books') {
-      console.log('Fetching my books...');
-      fetchMyBooks();
-    } else if (activeTab === 'admin' && user?.role === 'admin') {
-      console.log('Fetching admin borrows...');
-      fetchAdminBorrows();
+    console.log('Library initial load - loading books');
+    fetchBooks(); // Always load books initially
+  }, []);
+
+  // Handle user-dependent data when user becomes available
+  useEffect(() => {
+    if (user) {
+      console.log('Library user available - activeTab:', activeTab);
+      if (activeTab === 'my-books') {
+        fetchMyBooks();
+      } else if (activeTab === 'admin' && user?.role === 'admin') {
+        fetchAdminBorrows();
+      }
     }
-  }, [activeTab, searchTerm, selectedCategory]);
+  }, [user, activeTab]);
+
+  // Handle search/filter updates for books
+  useEffect(() => {
+    if (activeTab === 'browse') {
+      console.log('Library search/filter change');
+      fetchBooks();
+    }
+  }, [searchTerm, selectedCategory]);
 
   const fetchBooks = async () => {
     console.log('fetchBooks called');
@@ -67,6 +79,8 @@ export default function Library() {
       if (response.success) {
         console.log('Setting books from API:', response.books);
         setBooks(response.books);
+      } else {
+        throw new Error('API response not successful');
       }
     } catch (error) {
       console.error('Error fetching books:', error);
@@ -490,6 +504,8 @@ export default function Library() {
       const response = await libraryAPI.getMyBooks();
       if (response.success) {
         setMyBooks(response.borrows);
+      } else {
+        throw new Error('API response not successful');
       }
     } catch (error) {
       console.error('Error fetching my books:', error);
@@ -630,14 +646,8 @@ export default function Library() {
         }
       ];
       
-      // Filter based on user role - students see only their books
-      if (user?.role === 'student') {
-        setMyBooks(sampleBorrows);
-      } else if (user?.role === 'faculty') {
-        setMyBooks(sampleBorrows);
-      } else {
-        setMyBooks([]);
-      }
+      // All users can see their borrowed books
+      setMyBooks(sampleBorrows);
     } finally {
       setLoading(false);
     }
@@ -650,6 +660,8 @@ export default function Library() {
       if (response.success) {
         setAdminBorrows(response.borrows);
         setAdminStats(response.stats);
+      } else {
+        throw new Error('API response not successful');
       }
     } catch (error) {
       console.error('Error fetching admin data:', error);
@@ -1066,37 +1078,51 @@ export default function Library() {
             </div>
 
             {/* Books Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {console.log('Rendering books:', books, 'Loading:', loading)}
-              {books.map(book => (
-                <div key={book._id} className="bg-gray-800 rounded-lg p-6 border border-gray-700">
-                  <div className="flex items-start justify-between mb-4">
-                    <Book className="text-blue-400" size={24} />
-                    <span className={`px-2 py-1 rounded text-xs ${
-                      book.availableCopies > 0 ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
-                    }`}>
-                      {book.availableCopies > 0 ? 'Available' : 'Not Available'}
-                    </span>
+            {loading ? (
+              <div className="flex items-center justify-center h-64">
+                <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {console.log('Rendering books:', books, 'Loading:', loading)}
+                {books.length === 0 ? (
+                  <div className="col-span-full text-center py-12">
+                    <Book className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-gray-400 mb-2">No books found</h3>
+                    <p className="text-gray-500">Try adjusting your search or filter criteria</p>
                   </div>
-                  <h3 className="text-white font-semibold text-lg mb-2">{book.title}</h3>
-                  <p className="text-gray-400 mb-2">by {book.author}</p>
-                  <p className="text-gray-500 text-sm mb-2">ISBN: {book.isbn}</p>
-                  <p className="text-gray-500 text-sm mb-4">Category: {book.category}</p>
-                  <div className="flex items-center justify-between text-sm text-gray-400 mb-4">
-                    <span>Available: {book.availableCopies}/{book.totalCopies}</span>
-                    <span>Location: {book.location}</span>
-                  </div>
-                  {book.availableCopies > 0 && user?.role !== 'admin' && (
-                    <button
-                      onClick={() => handleBorrowBook(book._id)}
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors"
-                    >
-                      Borrow Book
-                    </button>
-                  )}
-                </div>
-              ))}
-            </div>
+                ) : (
+                  books.map(book => (
+                    <div key={book._id} className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                      <div className="flex items-start justify-between mb-4">
+                        <Book className="text-blue-400" size={24} />
+                        <span className={`px-2 py-1 rounded text-xs ${
+                          book.availableCopies > 0 ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
+                        }`}>
+                          {book.availableCopies > 0 ? 'Available' : 'Not Available'}
+                        </span>
+                      </div>
+                      <h3 className="text-white font-semibold text-lg mb-2">{book.title}</h3>
+                      <p className="text-gray-400 mb-2">by {book.author}</p>
+                      <p className="text-gray-500 text-sm mb-2">ISBN: {book.isbn}</p>
+                      <p className="text-gray-500 text-sm mb-4">Category: {book.category}</p>
+                      <div className="flex items-center justify-between text-sm text-gray-400 mb-4">
+                        <span>Available: {book.availableCopies}/{book.totalCopies}</span>
+                        <span>Location: {book.location}</span>
+                      </div>
+                      {book.availableCopies > 0 && user?.role !== 'admin' && (
+                        <button
+                          onClick={() => handleBorrowBook(book._id)}
+                          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors"
+                        >
+                          Borrow Book
+                        </button>
+                      )}
+                    </div>
+                  ))
+                )}
+              </div>
+            )}
           </div>
         )}
 

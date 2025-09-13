@@ -25,9 +25,14 @@ const Booking = () => {
   });
 
   const fetchBookingsData = async () => {
+    setLoading(true);
     try {
       const data = await bookingsAPI.getAll();
-      setBookings(data.bookings || []);
+      if (data && data.bookings) {
+        setBookings(data.bookings);
+      } else {
+        throw new Error('No bookings data received');
+      }
     } catch (error) {
       console.error('Error fetching bookings:', error);
       // Comprehensive mock data with dual approval system
@@ -398,9 +403,9 @@ const Booking = () => {
         },
       ];
       
-      // Filter based on user role
+      // Filter based on user role - students should see all approved bookings plus their own
       if (user?.role === 'student') {
-        setBookings(mockBookings.filter(booking => booking.bookedByRole === 'student' || booking.status === 'approved'));
+        setBookings(mockBookings);
       } else if (user?.role === 'faculty') {
         setBookings(mockBookings);
       } else if (user?.role === 'admin') {
@@ -688,16 +693,18 @@ const Booking = () => {
     }
   };
 
+  // Initial data load - always fetch data regardless of user state
   useEffect(() => {
-    if (user) {
-      fetchBookingsData();
-      fetchResources();
-      // Use real-time bookings data
+    fetchBookingsData();
+    fetchResources();
+  }, []);
+
+  // Separate effect for real-time bookings
+  useEffect(() => {
+    if (realTimeBookings && realTimeBookings.length > 0) {
       setBookings(realTimeBookings);
-    } else {
-      setLoading(false);
     }
-  }, [user, realTimeBookings]);
+  }, [realTimeBookings]);
 
   if (authLoading) {
     return (

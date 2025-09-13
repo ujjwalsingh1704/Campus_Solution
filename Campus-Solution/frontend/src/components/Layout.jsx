@@ -45,7 +45,6 @@ const Layout = ({ children }) => {
           { name: 'Canteen', href: '/canteen', icon: Coffee },
           { name: 'Bookings', href: '/bookings', icon: BookOpen },
           { name: 'Wallet', href: '/wallet', icon: IndianRupee },
-          { name: 'Expense Management', href: '/expense-management', icon: IndianRupee },
         ];
       case 'admin':
         return [

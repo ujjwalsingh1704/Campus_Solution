@@ -3,14 +3,25 @@ const API_BASE_URL = 'http://localhost:5000/api';
 const libraryAPI = {
   // Books
   getBooks: async (params = {}) => {
-    const queryString = new URLSearchParams(params).toString();
-    const response = await fetch(`${API_BASE_URL}/library/books?${queryString}`, {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
+    try {
+      const queryString = new URLSearchParams(params).toString();
+      const response = await fetch(`${API_BASE_URL}/library/books?${queryString}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    });
-    return response.json();
+      
+      return await response.json();
+    } catch (error) {
+      console.error('Library API error:', error);
+      // Return a failed response to trigger fallback
+      return { success: false, error: error.message };
+    }
   },
 
   addBook: async (bookData) => {
@@ -64,13 +75,23 @@ const libraryAPI = {
 
   // User's books
   getMyBooks: async () => {
-    const response = await fetch(`${API_BASE_URL}/library/my-books`, {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
+    try {
+      const response = await fetch(`${API_BASE_URL}/library/my-books`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    });
-    return response.json();
+      
+      return await response.json();
+    } catch (error) {
+      console.error('Library API error:', error);
+      return { success: false, error: error.message };
+    }
   },
 
   // Fine payment
@@ -87,19 +108,28 @@ const libraryAPI = {
   },
 
   // Admin functions
-  getAdminBorrows: async (params = {}) => {
-    const queryString = new URLSearchParams(params).toString();
-    const response = await fetch(`${API_BASE_URL}/library/admin/borrows?${queryString}`, {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
+  getAdminBorrows: async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/library/admin/borrows`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    });
-    return response.json();
+      
+      return await response.json();
+    } catch (error) {
+      console.error('Library API error:', error);
+      return { success: false, error: error.message };
+    }
   },
 
   // Admin: Add new book
-  addBook: async (bookData) => {
+  addBookAdmin: async (bookData) => {
     const response = await fetch(`${API_BASE_URL}/library/books`, {
       method: 'POST',
       headers: {

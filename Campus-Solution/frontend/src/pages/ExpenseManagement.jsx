@@ -26,12 +26,12 @@ const ExpenseManagement = () => {
   const [formData, setFormData] = useState({
     amount: '',
     description: '',
-    category: 'office',
+    category: 'infrastructure',
     receipt: null
   });
 
   const categories = [
-    'office', 'professional', 'travel', 'entertainment', 'equipment', 'other'
+    'infrastructure', 'maintenance', 'utilities', 'supplies', 'equipment', 'events', 'salaries', 'transport', 'technology', 'other'
   ];
 
   const stats = getExpenseStats();
@@ -82,11 +82,15 @@ const ExpenseManagement = () => {
 
   const getCategoryColor = (category) => {
     const colors = {
-      office: 'bg-blue-600/20 text-blue-400 border-blue-600/50',
-      professional: 'bg-green-600/20 text-green-400 border-green-600/50',
-      travel: 'bg-purple-600/20 text-purple-400 border-purple-600/50',
-      entertainment: 'bg-orange-600/20 text-orange-400 border-orange-600/50',
+      infrastructure: 'bg-blue-600/20 text-blue-400 border-blue-600/50',
+      maintenance: 'bg-green-600/20 text-green-400 border-green-600/50',
+      utilities: 'bg-purple-600/20 text-purple-400 border-purple-600/50',
+      supplies: 'bg-orange-600/20 text-orange-400 border-orange-600/50',
       equipment: 'bg-red-600/20 text-red-400 border-red-600/50',
+      events: 'bg-pink-600/20 text-pink-400 border-pink-600/50',
+      salaries: 'bg-indigo-600/20 text-indigo-400 border-indigo-600/50',
+      transport: 'bg-cyan-600/20 text-cyan-400 border-cyan-600/50',
+      technology: 'bg-emerald-600/20 text-emerald-400 border-emerald-600/50',
       other: 'bg-gray-600/20 text-gray-400 border-gray-600/50'
     };
     return colors[category] || colors.other;
@@ -98,14 +102,14 @@ const ExpenseManagement = () => {
       : 'bg-yellow-600/20 text-yellow-400 border-yellow-600/50';
   };
 
-  if (user?.role !== 'admin' && user?.role !== 'faculty') {
+  if (user?.role !== 'admin') {
     return (
       <Layout>
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <XCircle size={48} className="mx-auto text-red-400 mb-4" />
             <h1 className="text-2xl font-bold text-white mb-2">Access Denied</h1>
-            <p className="text-gray-400">Only admin and faculty can access expense management.</p>
+            <p className="text-gray-400">Only administrators can access expense management.</p>
           </div>
         </div>
       </Layout>
@@ -119,7 +123,7 @@ const ExpenseManagement = () => {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-3xl font-bold text-white">Expense Management</h1>
-            <p className="text-gray-400">Track and manage your expenses</p>
+            <p className="text-gray-400">Track and manage campus expenses and budgets</p>
           </div>
           <button
             onClick={() => setShowAddForm(true)}

@@ -85,7 +85,7 @@ const Wallet = () => {
     }
   ];
 
-  const displayTransactions = transactions.length > 0 ? transactions : sampleTransactions;
+  const displayTransactions = (transactions && transactions.length > 0) ? transactions : sampleTransactions;
 
   const getCategoryIcon = (category) => {
     const icons = {
@@ -163,6 +163,23 @@ const Wallet = () => {
     );
   }
 
+  // Add error boundary for wallet data
+  if (!user) {
+    return (
+      <Layout>
+        <div className="max-w-6xl mx-auto space-y-6">
+          <div className="flex items-center justify-center h-64">
+            <div className="text-center">
+              <WalletIcon className="mx-auto text-gray-500 mb-4" size={48} />
+              <h3 className="text-xl font-semibold text-white mb-2">Authentication Required</h3>
+              <p className="text-gray-400">Please log in to access your wallet</p>
+            </div>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <div className="max-w-6xl mx-auto space-y-6">
@@ -192,7 +209,7 @@ const Wallet = () => {
           <div className="flex items-center justify-between mb-6">
             <div>
               <p className="text-blue-100 text-sm mb-2">Available Balance</p>
-              <p className="text-4xl font-bold text-white">₹{balance.toLocaleString()}</p>
+              <p className="text-4xl font-bold text-white">₹{balance?.toLocaleString() || '0'}</p>
             </div>
             <div className="text-right">
               <p className="text-blue-100 text-sm">Last Updated</p>

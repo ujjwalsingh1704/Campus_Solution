@@ -149,7 +149,7 @@ const AppContent = () => {
         } />
 
         <Route path="/expense-management" element={
-          <ProtectedRoute allowedRoles={['admin', 'faculty']}>
+          <ProtectedRoute allowedRoles={['admin']}>
             <ExpenseManagement />
           </ProtectedRoute>
         } />

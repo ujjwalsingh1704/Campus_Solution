@@ -115,7 +115,14 @@ export const foodAPI = {
 
 // Bookings API
 export const bookingsAPI = {
-  getAll: () => apiRequest('/bookings'),
+  getAll: async () => {
+    try {
+      return await apiRequest('/bookings');
+    } catch (error) {
+      console.error('Bookings API error:', error);
+      return { success: false, error: error.message };
+    }
+  },
   create: (booking) => apiRequest('/bookings', {
     method: 'POST',
     body: JSON.stringify(booking),
@@ -124,7 +131,14 @@ export const bookingsAPI = {
     method: 'PUT',
     body: JSON.stringify({ status }),
   }),
-  getResources: () => apiRequest('/bookings/resources'),
+  getResources: async () => {
+    try {
+      return await apiRequest('/bookings/resources');
+    } catch (error) {
+      console.error('Resources API error:', error);
+      return { success: false, error: error.message };
+    }
+  },
 };
 
 // AI Assistant API
