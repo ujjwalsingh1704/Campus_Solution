@@ -13,6 +13,7 @@ import {
   IndianRupee
 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import AIAssistant from './AIAssistant';
 
 const Layout = ({ children }) => {
   const { user } = useAuth();
@@ -112,6 +113,9 @@ const Layout = ({ children }) => {
           {children}
         </main>
       </div>
+
+      {/* AI Assistant - Available on all pages */}
+      <AIAssistant />
     </div>
   );
 };

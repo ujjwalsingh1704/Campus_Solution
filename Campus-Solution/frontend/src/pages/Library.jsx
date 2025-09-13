@@ -36,7 +36,7 @@ export default function Library() {
 
   const categories = [
     'all', 'Computer Science', 'Mathematics', 'Physics', 
-    'Engineering', 'Business', 'Literature', 'Research', 'General'
+    'Engineering', 'Chemistry', 'Business', 'Literature', 'Research', 'General'
   ];
 
   useEffect(() => {
@@ -70,137 +70,395 @@ export default function Library() {
       }
     } catch (error) {
       console.error('Error fetching books:', error);
-      // Fallback to sample data when API is not available
+      // Comprehensive hardcoded book collection for better user experience
       const sampleBooks = [
+        // Computer Science Books
         {
           _id: '1',
           title: 'Introduction to Algorithms',
-          author: 'Thomas H. Cormen',
+          author: 'Thomas H. Cormen, Charles E. Leiserson',
           isbn: '978-0262033848',
           category: 'Computer Science',
           publisher: 'MIT Press',
           publishYear: 2009,
-          totalCopies: 5,
-          availableCopies: 3,
+          totalCopies: 8,
+          availableCopies: 5,
           location: 'CS-Section-A1',
-          description: 'Comprehensive introduction to algorithms and data structures'
+          description: 'The most comprehensive introduction to algorithms and data structures. Essential for computer science students.',
+          rating: 4.8,
+          tags: ['algorithms', 'data-structures', 'programming']
         },
         {
           _id: '2',
-          title: 'Clean Code',
+          title: 'Clean Code: A Handbook of Agile Software Craftsmanship',
           author: 'Robert C. Martin',
           isbn: '978-0132350884',
           category: 'Computer Science',
           publisher: 'Prentice Hall',
           publishYear: 2008,
-          totalCopies: 4,
-          availableCopies: 2,
+          totalCopies: 6,
+          availableCopies: 3,
           location: 'CS-Section-A2',
-          description: 'A handbook of agile software craftsmanship'
+          description: 'Learn to write clean, maintainable code that stands the test of time.',
+          rating: 4.6,
+          tags: ['clean-code', 'software-engineering', 'best-practices']
         },
         {
           _id: '3',
-          title: 'Design Patterns',
-          author: 'Gang of Four',
+          title: 'Design Patterns: Elements of Reusable Object-Oriented Software',
+          author: 'Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides',
           isbn: '978-0201633612',
           category: 'Computer Science',
           publisher: 'Addison-Wesley',
           publishYear: 1994,
-          totalCopies: 3,
-          availableCopies: 1,
+          totalCopies: 5,
+          availableCopies: 2,
           location: 'CS-Section-A3',
-          description: 'Elements of reusable object-oriented software'
+          description: 'The classic Gang of Four book on design patterns in object-oriented programming.',
+          rating: 4.5,
+          tags: ['design-patterns', 'oop', 'software-architecture']
         },
         {
           _id: '4',
-          title: 'Calculus: Early Transcendentals',
-          author: 'James Stewart',
-          isbn: '978-1285741550',
-          category: 'Mathematics',
-          publisher: 'Cengage Learning',
-          publishYear: 2015,
-          totalCopies: 6,
-          availableCopies: 4,
-          location: 'MATH-Section-B1',
-          description: 'Comprehensive calculus textbook'
-        },
-        {
-          _id: '5',
-          title: 'Physics for Scientists and Engineers',
-          author: 'Raymond A. Serway',
-          isbn: '978-1133947271',
-          category: 'Physics',
-          publisher: 'Cengage Learning',
-          publishYear: 2013,
-          totalCopies: 5,
-          availableCopies: 3,
-          location: 'PHY-Section-C1',
-          description: 'Comprehensive physics textbook for engineering students'
-        },
-        {
-          _id: '6',
           title: 'Database System Concepts',
-          author: 'Abraham Silberschatz',
+          author: 'Abraham Silberschatz, Henry F. Korth, S. Sudarshan',
           isbn: '978-0078022159',
           category: 'Computer Science',
           publisher: 'McGraw-Hill',
           publishYear: 2019,
-          totalCopies: 4,
+          totalCopies: 7,
           availableCopies: 0,
           location: 'CS-Section-A4',
-          description: 'Comprehensive database systems textbook'
+          description: 'Comprehensive coverage of database management systems and concepts.',
+          rating: 4.4,
+          tags: ['database', 'sql', 'dbms']
         },
         {
-          _id: '7',
-          title: 'Linear Algebra and Its Applications',
-          author: 'David C. Lay',
-          isbn: '978-0321982384',
-          category: 'Mathematics',
-          publisher: 'Pearson',
-          publishYear: 2015,
-          totalCopies: 5,
-          availableCopies: 2,
-          location: 'MATH-Section-B2',
-          description: 'Linear algebra concepts and applications'
-        },
-        {
-          _id: '8',
+          _id: '5',
           title: 'Operating System Concepts',
-          author: 'Abraham Silberschatz',
+          author: 'Abraham Silberschatz, Peter Baer Galvin, Greg Gagne',
           isbn: '978-1118063330',
           category: 'Computer Science',
           publisher: 'Wiley',
           publishYear: 2018,
-          totalCopies: 4,
-          availableCopies: 1,
+          totalCopies: 6,
+          availableCopies: 2,
           location: 'CS-Section-A5',
-          description: 'Comprehensive operating systems textbook'
+          description: 'The definitive textbook on operating systems concepts and implementation.',
+          rating: 4.3,
+          tags: ['operating-systems', 'system-programming', 'kernel']
         },
         {
-          _id: '9',
+          _id: '6',
           title: 'Artificial Intelligence: A Modern Approach',
-          author: 'Stuart Russell',
+          author: 'Stuart Russell, Peter Norvig',
           isbn: '978-0134610993',
           category: 'Computer Science',
           publisher: 'Pearson',
           publishYear: 2020,
-          totalCopies: 3,
+          totalCopies: 5,
           availableCopies: 1,
           location: 'CS-Section-A6',
-          description: 'Comprehensive AI textbook covering modern approaches'
+          description: 'The leading textbook in artificial intelligence, covering modern AI techniques.',
+          rating: 4.7,
+          tags: ['artificial-intelligence', 'machine-learning', 'ai']
+        },
+        {
+          _id: '7',
+          title: 'Computer Networks',
+          author: 'Andrew S. Tanenbaum, David J. Wetherall',
+          isbn: '978-0132126953',
+          category: 'Computer Science',
+          publisher: 'Pearson',
+          publishYear: 2017,
+          totalCopies: 4,
+          availableCopies: 2,
+          location: 'CS-Section-A7',
+          description: 'Comprehensive guide to computer networking protocols and technologies.',
+          rating: 4.2,
+          tags: ['networking', 'protocols', 'internet']
+        },
+        {
+          _id: '8',
+          title: 'The Pragmatic Programmer',
+          author: 'David Thomas, Andrew Hunt',
+          isbn: '978-0135957059',
+          category: 'Computer Science',
+          publisher: 'Addison-Wesley',
+          publishYear: 2019,
+          totalCopies: 4,
+          availableCopies: 3,
+          location: 'CS-Section-A8',
+          description: 'Your journey to mastery in software development and programming practices.',
+          rating: 4.6,
+          tags: ['programming', 'software-development', 'best-practices']
+        },
+        
+        // Mathematics Books
+        {
+          _id: '9',
+          title: 'Calculus: Early Transcendentals',
+          author: 'James Stewart, Daniel K. Clegg, Saleem Watson',
+          isbn: '978-1285741550',
+          category: 'Mathematics',
+          publisher: 'Cengage Learning',
+          publishYear: 2015,
+          totalCopies: 10,
+          availableCopies: 7,
+          location: 'MATH-Section-B1',
+          description: 'The most successful calculus book of its generation, trusted by millions.',
+          rating: 4.3,
+          tags: ['calculus', 'derivatives', 'integrals']
         },
         {
           _id: '10',
+          title: 'Linear Algebra and Its Applications',
+          author: 'David C. Lay, Steven R. Lay, Judi J. McDonald',
+          isbn: '978-0321982384',
+          category: 'Mathematics',
+          publisher: 'Pearson',
+          publishYear: 2015,
+          totalCopies: 8,
+          availableCopies: 4,
+          location: 'MATH-Section-B2',
+          description: 'Modern approach to linear algebra with real-world applications.',
+          rating: 4.4,
+          tags: ['linear-algebra', 'matrices', 'vector-spaces']
+        },
+        {
+          _id: '11',
+          title: 'Discrete Mathematics and Its Applications',
+          author: 'Kenneth H. Rosen',
+          isbn: '978-0073383095',
+          category: 'Mathematics',
+          publisher: 'McGraw-Hill',
+          publishYear: 2018,
+          totalCopies: 6,
+          availableCopies: 3,
+          location: 'MATH-Section-B3',
+          description: 'Comprehensive coverage of discrete mathematics for computer science.',
+          rating: 4.2,
+          tags: ['discrete-math', 'logic', 'combinatorics']
+        },
+        {
+          _id: '12',
+          title: 'Probability and Statistics for Engineers and Scientists',
+          author: 'Ronald E. Walpole, Raymond H. Myers',
+          isbn: '978-0321629111',
+          category: 'Mathematics',
+          publisher: 'Pearson',
+          publishYear: 2016,
+          totalCopies: 7,
+          availableCopies: 5,
+          location: 'MATH-Section-B4',
+          description: 'Applied probability and statistics with engineering applications.',
+          rating: 4.1,
+          tags: ['probability', 'statistics', 'engineering']
+        },
+        
+        // Physics Books
+        {
+          _id: '13',
+          title: 'Physics for Scientists and Engineers',
+          author: 'Raymond A. Serway, John W. Jewett',
+          isbn: '978-1133947271',
+          category: 'Physics',
+          publisher: 'Cengage Learning',
+          publishYear: 2013,
+          totalCopies: 9,
+          availableCopies: 6,
+          location: 'PHY-Section-C1',
+          description: 'Comprehensive physics textbook covering mechanics, thermodynamics, and modern physics.',
+          rating: 4.5,
+          tags: ['physics', 'mechanics', 'thermodynamics']
+        },
+        {
+          _id: '14',
+          title: 'University Physics with Modern Physics',
+          author: 'Hugh D. Young, Roger A. Freedman',
+          isbn: '978-0321973610',
+          category: 'Physics',
+          publisher: 'Pearson',
+          publishYear: 2015,
+          totalCopies: 6,
+          availableCopies: 3,
+          location: 'PHY-Section-C2',
+          description: 'Comprehensive university-level physics with modern physics topics.',
+          rating: 4.4,
+          tags: ['physics', 'quantum-mechanics', 'relativity']
+        },
+        {
+          _id: '15',
+          title: 'Introduction to Electrodynamics',
+          author: 'David J. Griffiths',
+          isbn: '978-1108420419',
+          category: 'Physics',
+          publisher: 'Cambridge University Press',
+          publishYear: 2017,
+          totalCopies: 4,
+          availableCopies: 1,
+          location: 'PHY-Section-C3',
+          description: 'Classic textbook on electromagnetic theory and applications.',
+          rating: 4.6,
+          tags: ['electromagnetism', 'maxwell-equations', 'field-theory']
+        },
+        
+        // Engineering Books
+        {
+          _id: '16',
+          title: 'Engineering Mechanics: Statics',
+          author: 'Russell C. Hibbeler',
+          isbn: '978-0134814971',
+          category: 'Engineering',
+          publisher: 'Pearson',
+          publishYear: 2017,
+          totalCopies: 8,
+          availableCopies: 5,
+          location: 'ENG-Section-D1',
+          description: 'Fundamental principles of statics for engineering students.',
+          rating: 4.3,
+          tags: ['statics', 'mechanics', 'engineering']
+        },
+        {
+          _id: '17',
+          title: 'Fundamentals of Electric Circuits',
+          author: 'Charles K. Alexander, Matthew N. O. Sadiku',
+          isbn: '978-0078028229',
+          category: 'Engineering',
+          publisher: 'McGraw-Hill',
+          publishYear: 2016,
+          totalCopies: 7,
+          availableCopies: 4,
+          location: 'ENG-Section-D2',
+          description: 'Comprehensive introduction to electric circuit analysis.',
+          rating: 4.2,
+          tags: ['circuits', 'electrical-engineering', 'electronics']
+        },
+        {
+          _id: '18',
+          title: 'Materials Science and Engineering: An Introduction',
+          author: 'William D. Callister Jr., David G. Rethwisch',
+          isbn: '978-1118324578',
+          category: 'Engineering',
+          publisher: 'Wiley',
+          publishYear: 2018,
+          totalCopies: 5,
+          availableCopies: 2,
+          location: 'ENG-Section-D3',
+          description: 'Comprehensive introduction to materials science and engineering.',
+          rating: 4.4,
+          tags: ['materials-science', 'engineering', 'properties']
+        },
+        
+        // Chemistry Books
+        {
+          _id: '19',
           title: 'Organic Chemistry',
           author: 'Paula Yurkanis Bruice',
           isbn: '978-0134042282',
           category: 'Chemistry',
           publisher: 'Pearson',
           publishYear: 2016,
-          totalCopies: 3,
+          totalCopies: 6,
+          availableCopies: 4,
+          location: 'CHEM-Section-E1',
+          description: 'Comprehensive organic chemistry textbook with modern approach.',
+          rating: 4.3,
+          tags: ['organic-chemistry', 'reactions', 'mechanisms']
+        },
+        {
+          _id: '20',
+          title: 'General Chemistry: The Essential Concepts',
+          author: 'Raymond Chang, Jason Overby',
+          isbn: '978-0073402758',
+          category: 'Chemistry',
+          publisher: 'McGraw-Hill',
+          publishYear: 2018,
+          totalCopies: 8,
+          availableCopies: 6,
+          location: 'CHEM-Section-E2',
+          description: 'Essential concepts in general chemistry for science majors.',
+          rating: 4.2,
+          tags: ['general-chemistry', 'atoms', 'bonding']
+        },
+        
+        // Business Books
+        {
+          _id: '21',
+          title: 'Principles of Management',
+          author: 'Stephen P. Robbins, Mary Coulter',
+          isbn: '978-0134486833',
+          category: 'Business',
+          publisher: 'Pearson',
+          publishYear: 2017,
+          totalCopies: 5,
+          availableCopies: 3,
+          location: 'BUS-Section-F1',
+          description: 'Fundamental principles of management theory and practice.',
+          rating: 4.1,
+          tags: ['management', 'leadership', 'business']
+        },
+        {
+          _id: '22',
+          title: 'Financial Accounting',
+          author: 'Jerry J. Weygandt, Paul D. Kimmel, Donald E. Kieso',
+          isbn: '978-1119493631',
+          category: 'Business',
+          publisher: 'Wiley',
+          publishYear: 2018,
+          totalCopies: 6,
+          availableCopies: 4,
+          location: 'BUS-Section-F2',
+          description: 'Introduction to financial accounting principles and practices.',
+          rating: 4.0,
+          tags: ['accounting', 'finance', 'financial-statements']
+        },
+        
+        // Literature Books
+        {
+          _id: '23',
+          title: 'The Norton Anthology of English Literature',
+          author: 'Stephen Greenblatt',
+          isbn: '978-0393603132',
+          category: 'Literature',
+          publisher: 'W. W. Norton & Company',
+          publishYear: 2018,
+          totalCopies: 4,
           availableCopies: 2,
-          location: 'CHEM-Section-D1',
-          description: 'Comprehensive organic chemistry textbook'
+          location: 'LIT-Section-G1',
+          description: 'Comprehensive collection of English literature from medieval to modern times.',
+          rating: 4.5,
+          tags: ['literature', 'english', 'anthology']
+        },
+        {
+          _id: '24',
+          title: 'Pride and Prejudice',
+          author: 'Jane Austen',
+          isbn: '978-0141439518',
+          category: 'Literature',
+          publisher: 'Penguin Classics',
+          publishYear: 2003,
+          totalCopies: 7,
+          availableCopies: 5,
+          location: 'LIT-Section-G2',
+          description: 'Classic novel of manners and romance in Regency England.',
+          rating: 4.7,
+          tags: ['classic', 'romance', 'british-literature']
+        },
+        {
+          _id: '25',
+          title: '1984',
+          author: 'George Orwell',
+          isbn: '978-0451524935',
+          category: 'Literature',
+          publisher: 'Signet Classics',
+          publishYear: 1961,
+          totalCopies: 8,
+          availableCopies: 3,
+          location: 'LIT-Section-G3',
+          description: 'Dystopian novel about totalitarianism and surveillance.',
+          rating: 4.8,
+          tags: ['dystopian', 'classic', 'political-fiction']
         }
       ];
       
@@ -235,7 +493,7 @@ export default function Library() {
       }
     } catch (error) {
       console.error('Error fetching my books:', error);
-      // Fallback to sample borrowed books data
+      // Enhanced hardcoded borrowing data for better user experience
       const currentDate = new Date();
       const sampleBorrows = [
         {
@@ -243,12 +501,12 @@ export default function Library() {
           book: {
             _id: '1',
             title: 'Introduction to Algorithms',
-            author: 'Thomas H. Cormen',
+            author: 'Thomas H. Cormen, Charles E. Leiserson',
             isbn: '978-0262033848',
             category: 'Computer Science'
           },
-          borrowDate: new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
-          dueDate: new Date(currentDate.getTime() + 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days from now
+          borrowDate: new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+          dueDate: new Date(currentDate.getTime() + 2 * 24 * 60 * 60 * 1000).toISOString(),
           returnDate: null,
           status: 'borrowed',
           renewalCount: 0,
@@ -263,19 +521,41 @@ export default function Library() {
         {
           _id: 'borrow2',
           book: {
+            _id: '8',
+            title: 'The Pragmatic Programmer',
+            author: 'David Thomas, Andrew Hunt',
+            isbn: '978-0135957059',
+            category: 'Computer Science'
+          },
+          borrowDate: new Date(currentDate.getTime() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+          dueDate: new Date(currentDate.getTime() + 4 * 24 * 60 * 60 * 1000).toISOString(),
+          returnDate: null,
+          status: 'borrowed',
+          renewalCount: 0,
+          fine: {
+            amount: 0,
+            lateFeeAmount: 0,
+            totalAmount: 0,
+            isPaid: true,
+            paymentDate: null
+          }
+        },
+        {
+          _id: 'borrow3',
+          book: {
             _id: '2',
-            title: 'Clean Code',
+            title: 'Clean Code: A Handbook of Agile Software Craftsmanship',
             author: 'Robert C. Martin',
             isbn: '978-0132350884',
             category: 'Computer Science'
           },
-          borrowDate: new Date(currentDate.getTime() - 10 * 24 * 60 * 60 * 1000).toISOString(), // 10 days ago
-          dueDate: new Date(currentDate.getTime() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days overdue
+          borrowDate: new Date(currentDate.getTime() - 10 * 24 * 60 * 60 * 1000).toISOString(),
+          dueDate: new Date(currentDate.getTime() - 3 * 24 * 60 * 60 * 1000).toISOString(),
           returnDate: null,
           status: 'overdue',
           renewalCount: 1,
           fine: {
-            amount: user?.role === 'student' ? 15 : 30, // 3 days * (₹5 for student / ₹10 for faculty)
+            amount: user?.role === 'student' ? 15 : 30,
             lateFeeAmount: 0,
             totalAmount: user?.role === 'student' ? 15 : 30,
             isPaid: false,
@@ -283,25 +563,69 @@ export default function Library() {
           }
         },
         {
-          _id: 'borrow3',
+          _id: 'borrow4',
           book: {
-            _id: '4',
+            _id: '13',
+            title: 'Physics for Scientists and Engineers',
+            author: 'Raymond A. Serway, John W. Jewett',
+            isbn: '978-1133947271',
+            category: 'Physics'
+          },
+          borrowDate: new Date(currentDate.getTime() - 8 * 24 * 60 * 60 * 1000).toISOString(),
+          dueDate: new Date(currentDate.getTime() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+          returnDate: null,
+          status: 'overdue',
+          renewalCount: 0,
+          fine: {
+            amount: user?.role === 'student' ? 5 : 10,
+            lateFeeAmount: 0,
+            totalAmount: user?.role === 'student' ? 5 : 10,
+            isPaid: false,
+            paymentDate: null
+          }
+        },
+        {
+          _id: 'borrow5',
+          book: {
+            _id: '9',
             title: 'Calculus: Early Transcendentals',
-            author: 'James Stewart',
+            author: 'James Stewart, Daniel K. Clegg, Saleem Watson',
             isbn: '978-1285741550',
             category: 'Mathematics'
           },
-          borrowDate: new Date(currentDate.getTime() - 20 * 24 * 60 * 60 * 1000).toISOString(), // 20 days ago
-          dueDate: new Date(currentDate.getTime() - 13 * 24 * 60 * 60 * 1000).toISOString(), // 13 days overdue
-          returnDate: new Date(currentDate.getTime() - 1 * 24 * 60 * 60 * 1000).toISOString(), // returned 1 day ago
+          borrowDate: new Date(currentDate.getTime() - 20 * 24 * 60 * 60 * 1000).toISOString(),
+          dueDate: new Date(currentDate.getTime() - 13 * 24 * 60 * 60 * 1000).toISOString(),
+          returnDate: new Date(currentDate.getTime() - 1 * 24 * 60 * 60 * 1000).toISOString(),
           status: 'returned',
           renewalCount: 0,
           fine: {
-            amount: user?.role === 'student' ? 65 : 130, // 13 days * (₹5 for student / ₹10 for faculty)
-            lateFeeAmount: 25, // Late fee for delayed payment
+            amount: user?.role === 'student' ? 65 : 130,
+            lateFeeAmount: 25,
             totalAmount: user?.role === 'student' ? 90 : 155,
             isPaid: true,
             paymentDate: new Date(currentDate.getTime() - 1 * 24 * 60 * 60 * 1000).toISOString()
+          }
+        },
+        {
+          _id: 'borrow6',
+          book: {
+            _id: '24',
+            title: 'Pride and Prejudice',
+            author: 'Jane Austen',
+            isbn: '978-0141439518',
+            category: 'Literature'
+          },
+          borrowDate: new Date(currentDate.getTime() - 25 * 24 * 60 * 60 * 1000).toISOString(),
+          dueDate: new Date(currentDate.getTime() - 18 * 24 * 60 * 60 * 1000).toISOString(),
+          returnDate: new Date(currentDate.getTime() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+          status: 'returned',
+          renewalCount: 1,
+          fine: {
+            amount: user?.role === 'student' ? 90 : 180,
+            lateFeeAmount: 50,
+            totalAmount: user?.role === 'student' ? 140 : 230,
+            isPaid: true,
+            paymentDate: new Date(currentDate.getTime() - 3 * 24 * 60 * 60 * 1000).toISOString()
           }
         }
       ];
