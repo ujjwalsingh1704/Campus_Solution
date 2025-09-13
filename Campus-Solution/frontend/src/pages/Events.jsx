@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import Layout from '../components/Layout';
 import { eventsAPI } from '../utils/api';
-import { Calendar, Clock, MapPin, Users, Plus, Edit, Trash2, UserPlus, CheckCircle, XCircle, AlertCircle, FileText, Shield, Shirt } from 'lucide-react';
+import { Calendar, Clock, MapPin, Users, Plus, Edit, Trash2, UserPlus, CheckCircle, XCircle, AlertCircle, FileText, Shield, Shirt, User } from 'lucide-react';
 
 const Events = () => {
   const { user } = useAuth();
